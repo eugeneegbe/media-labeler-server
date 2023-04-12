@@ -5,3 +5,4 @@
 /node_modules
 
 /db/labeler.db
+/config.js
