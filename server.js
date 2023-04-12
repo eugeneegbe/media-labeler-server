@@ -16,8 +16,6 @@ app.use(require('express-session')({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use( "/", router );
-
 passport.use(
 	new MediaWikiStrategy({
 		consumerKey: config.consumer_key,
@@ -41,6 +39,8 @@ passport.serializeUser(	function ( user, done ) {
 passport.deserializeUser( function ( obj, done ) {
 	done( null, obj );
 });
+
+app.use( "/", router );
 
 app.set( "views", __dirname + "/public/views" );
 app.set( "view engine", "ejs" )
