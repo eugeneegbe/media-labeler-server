@@ -18,14 +18,13 @@ app.use(express.static(__dirname + "/public/views"));
 app.use('/users', userRouter);
 app.use('/contribution', contributionRouter);
 
-app.use(session({
-    secret: "OAuth Session",
-    saveUninitialized: true,
-    resave: true
-}));
-
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use( session({ secret: "OAuth Session",
+	saveUninitialized: true,
+	resave: true
+}) );
 
 app.use("/", router);
 
@@ -43,7 +42,8 @@ passport.use(
             };
             return done(null, profile);
         }
-    ));
+    )
+);
 
 passport.serializeUser(function (user, done) {
     done(null, user);
@@ -54,7 +54,7 @@ passport.deserializeUser(function (obj, done) {
 });
 
 router.get("/", function (req, res) {
-    res.send(`welcome home ${req.session}` )
+    res.send(`welcome home ${req.session.user}` )
 });
 
 router.get("/login", function (req, res) {
@@ -77,6 +77,7 @@ router.get("/auth/mediawiki/callback", function (req, res, next) {
                 console.log('login failed')
                 return next(err);
             }
+            console.log('user', user)
             req.session.user = user;
             res.redirect(req.baseUrl + "/");
         });
