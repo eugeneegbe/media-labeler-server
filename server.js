@@ -47,7 +47,7 @@ app.set( "view engine", "ejs" )
 
 router.get( "/", function ( req, res ) {
 	res.send({
-		user: req && req.session && req.session.user,
+		user: req.user,
 		url: req.baseUrl
 	} );
 } );
@@ -70,7 +70,6 @@ router.get( "/auth/mediawiki/callback", function( req, res, next ) {
 			if ( err ) {
 				return next( err );
 			}
-			res.session.user = user;
 			res.redirect( req.baseUrl + "/" );
 		} );
 	} )( req, res, next );
