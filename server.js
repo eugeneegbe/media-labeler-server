@@ -68,7 +68,7 @@ router.get("/auth/mediawiki/callback", function (req, res, next) {
         if (err) {
             return next(err);
         }
-
+        console.log('user', user)
         if (!user) {
             return res.redirect(req.baseUrl + "/login");
         }
