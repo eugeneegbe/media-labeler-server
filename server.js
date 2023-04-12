@@ -11,13 +11,14 @@ app.set( "views", __dirname + "/public/views" );
 app.set( "view engine", "ejs" );
 app.use( express.static(__dirname + "/public/views") );
 
-app.use( passport.initialize() );
-app.use( passport.session() );
-
 app.use( session({ secret: "OAuth Session",
 	saveUninitialized: true,
 	resave: true
 }) );
+
+
+app.use( passport.initialize() );
+app.use( passport.session() );
 
 app.use( "/", router );
 
