@@ -54,6 +54,7 @@ passport.deserializeUser(function (obj, done) {
 });
 
 router.get("/", function (req, res) {
+    console.log('session', req.session)
     res.send(`welcome home ${req.session}` )
 });
 
@@ -77,7 +78,6 @@ router.get("/auth/mediawiki/callback", function (req, res, next) {
                 console.log('login failed')
                 return next(err);
             }
-            console.log('user', user)
             req.session.user = user;
             res.redirect(req.baseUrl + "/");
         });
