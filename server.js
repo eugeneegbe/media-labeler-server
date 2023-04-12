@@ -16,6 +16,8 @@ app.set( "views", __dirname + "/public/views" );
 app.set( "view engine", "ejs" );
 app.use( express.static(__dirname + "/public/views") );
 
+app.use( "/", router );
+
 app.use( passport.initialize() );
 app.use( passport.session() );
 
@@ -42,9 +44,6 @@ passport.serializeUser(	function ( user, done ) {
 passport.deserializeUser( function ( obj, done ) {
 	done( null, obj );
 });
-
-
-app.use( "/*", router );
 
 router.get( "/", function ( req, res ) {
 	res.send({
