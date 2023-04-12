@@ -46,7 +46,7 @@ passport.deserializeUser( function ( obj, done ) {
 });
 
 router.get( "/", function ( req, res ) {
-	res.render( "index", {
+	res.send({
 		user: req && req.session && req.session.user,
 		url: req.baseUrl
 	} );
