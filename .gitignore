@@ -1,0 +1,8 @@
+# Editor directories and files
+
+.vscode
+
+/node_modules
+
+/db/labeler.db
+/package-lock.json
