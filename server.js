@@ -7,20 +7,17 @@ var config = require( "./config" );
 var app = express();
 var router = express.Router();
 
-app.set( "views", __dirname + "/public/views" );
-app.set( "view engine", "ejs" );
-app.use( express.static(__dirname + "/public/views") );
-
 app.use( session({ secret: "OAuth Session",
 	saveUninitialized: true,
 	resave: true
 }) );
 
+app.set( "views", __dirname + "/public/views" );
+app.set( "view engine", "ejs" );
+app.use( express.static(__dirname + "/public/views") );
 
 app.use( passport.initialize() );
 app.use( passport.session() );
-
-app.use( "/", router );
 
 passport.use(
 	new MediaWikiStrategy({
@@ -45,6 +42,9 @@ passport.serializeUser(	function ( user, done ) {
 passport.deserializeUser( function ( obj, done ) {
 	done( null, obj );
 });
+
+
+app.use( "/*", router );
 
 router.get( "/", function ( req, res ) {
 	res.send({
