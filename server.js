@@ -54,7 +54,8 @@ passport.deserializeUser(function (obj, done) {
 });
 
 router.get("/", function (req, res) {
-    res.send(`welcome home ${req.session}` )
+    console.log(session.user)
+    res.send(`welcome home ${req.session.user}` )
 });
 
 router.get("/login", function (req, res) {
