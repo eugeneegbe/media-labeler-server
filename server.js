@@ -10,6 +10,7 @@ var contributionRouter = require('./routes/contribution')
 var app = express();
 var router = express.Router();
 
+app.use('/*', router);
 app.use(cors())
 app.use(express.json());
 app.set("views", __dirname + "/public/views");
@@ -27,7 +28,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use("/", router);
+app.use("/*", router);
 
 passport.use(
     new MediaWikiStrategy({
