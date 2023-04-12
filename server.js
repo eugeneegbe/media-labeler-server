@@ -70,7 +70,7 @@ router.get( "/auth/mediawiki/callback", function( req, res, next ) {
 			if ( err ) {
 				return next( err );
 			}
-			req.session.user = user;
+			res.session.user = user;
 			res.redirect( req.baseUrl + "/" );
 		} );
 	} )( req, res, next );
