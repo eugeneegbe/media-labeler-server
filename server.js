@@ -1,25 +1,22 @@
 var express = require( "express" );
-var session = require( "express-session" );
 var passport = require( "passport" );
 var MediaWikiStrategy = require( "passport-mediawiki-oauth" ).OAuthStrategy;
 var config = require( "./config" );
 
-var app = express();
+
 var router = express.Router();
-
-app.use( session({ secret: "OAuth Session",
-	saveUninitialized: true,
-	resave: true
-}) );
-
-app.set( "views", __dirname + "/public/views" );
-app.set( "view engine", "ejs" );
+var app = express();
 app.use( express.static(__dirname + "/public/views") );
 
-app.use( "/", router );
+app.use(require('express-session')({
+  secret: 'OAuth Session',
+  resave: true,
+  saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.use( passport.initialize() );
-app.use( passport.session() );
+app.use( "/", router );
 
 passport.use(
 	new MediaWikiStrategy({
@@ -44,6 +41,9 @@ passport.serializeUser(	function ( user, done ) {
 passport.deserializeUser( function ( obj, done ) {
 	done( null, obj );
 });
+
+app.set( "views", __dirname + "/public/views" );
+app.set( "view engine", "ejs" )
 
 router.get( "/", function ( req, res ) {
 	res.send({
