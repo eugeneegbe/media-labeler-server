@@ -46,8 +46,9 @@ app.set( "views", __dirname + "/public/views" );
 app.set( "view engine", "ejs" )
 
 router.get( "/", function ( req, res ) {
+	console.log(passport.session.user)
 	res.send({
-		user: req.user,
+		user: passport.session.user,
 		url: req.baseUrl
 	} );
 } );
